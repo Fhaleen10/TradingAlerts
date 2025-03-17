@@ -1,0 +1,400 @@
+# Windsurf Rules Configuration
+
+## Project Structure Rules
+allowed_modifications:
+  - frontend/**/*
+  - backend/**/*
+  - docs/**/*
+  - tests/**/*
+  - scripts/**/*
+
+restricted_files:
+  - .env
+  - .env.*
+  - config/production.js
+  - deployment/**/*
+  - **/node_modules/**/*
+
+## Code Style Rules
+style_rules:
+  - use_eslint: true
+  - use_prettier: true
+  - indent: 2
+  - quotes: single
+  - semicolons: true
+
+## Security Rules
+security:
+  prevent:
+    - hardcoded_secrets
+    - api_keys_in_code
+    - plain_text_passwords
+    - sensitive_data_logging
+  require:
+    - input_validation
+    - request_sanitization
+    - proper_authentication
+    - secure_sessions
+
+## Authentication Rules
+authentication:
+  password_handling:
+    prevent:
+      - manual_password_hashing  # Always use Mongoose pre-save hook for password hashing
+      - modifying_login_logic    # Login logic is working, do not modify
+      - changing_reset_flow      # Password reset flow is working, do not modify
+    require:
+      - use_mongoose_hooks      # Use Mongoose pre-save hook for password hashing
+      - bcrypt_for_hashing     # Use bcrypt for password hashing
+      - secure_token_handling  # Use secure tokens for password reset
+    preserve:
+      - current_login_route    # Keep the existing login implementation
+      - reset_password_route   # Keep the existing password reset implementation
+      - password_comparison    # Keep the existing password comparison logic
+
+## Performance Rules
+performance:
+  prevent:
+    - large_file_uploads
+    - infinite_loops
+    - memory_leaks
+    - n+1_queries
+  optimize:
+    - database_queries
+    - api_responses
+    - image_sizes
+    - bundle_size
+
+## API Rules
+api:
+  require:
+    - proper_error_handling
+    - request_validation
+    - rate_limiting
+    - response_formatting
+  prevent:
+    - sensitive_data_exposure
+    - unauthenticated_endpoints
+    - insecure_methods
+
+## Database Rules
+database:
+  require:
+    - proper_indexing
+    - data_validation
+    - transaction_handling
+    - backup_strategy
+  prevent:
+    - direct_queries
+    - unmanaged_connections
+    - sensitive_data_storage
+
+## Testing Rules
+testing:
+  require:
+    - unit_tests
+    - integration_tests
+    - api_tests
+    - security_tests
+  coverage:
+    minimum: 80
+    critical_paths: 95
+
+## Documentation Rules
+documentation:
+  require:
+    - api_documentation
+    - setup_instructions
+    - deployment_guides
+    - code_comments
+  prevent:
+    - outdated_docs
+    - missing_readme
+    - unclear_instructions
+
+## Deployment Rules
+deployment:
+  require:
+    - version_control
+    - ci_cd_pipeline
+    - environment_configs
+    - backup_strategy
+  prevent:
+    - direct_production_access
+    - manual_deployments
+    - unversioned_releases
+
+## Monitoring Rules
+monitoring:
+  require:
+    - error_tracking
+    - performance_monitoring
+    - user_analytics
+    - security_alerts
+  prevent:
+    - unhandled_exceptions
+    - silent_failures
+
+## Dependencies Rules
+dependencies:
+  require:
+    - version_locking
+    - security_scanning
+    - compatibility_check
+  prevent:
+    - outdated_packages
+    - vulnerable_versions
+    - unused_dependencies
+
+## Feature Specific Rules
+features:
+  telegram_bot:
+    require:
+      - proper_error_handling
+      - rate_limiting
+      - message_validation
+    prevent:
+      - spam_messages
+      - excessive_notifications
+  
+  trading_alerts:
+    require:
+      - data_validation
+      - proper_formatting
+      - user_limits
+    prevent:
+      - false_signals
+      - duplicate_alerts
+
+  user_management:
+    require:
+      - proper_authentication
+      - role_management
+      - session_handling
+    prevent:
+      - password_exposure
+      - privilege_escalation
+
+## Subscription Rules
+subscription_system:
+  prevent:
+    - hardcoding_feature_limits
+    - direct_plan_checks
+    - bypassing_subscription_validation
+  require:
+    - feature_flag_system
+    - subscription_middleware
+    - plan_based_rate_limiting
+    - usage_tracking
+    - flexible_tier_updates
+  preserve:
+    - subscription_validation_logic
+    - billing_integration
+    - usage_monitoring
+
+## Scalability Rules
+scalability:
+  prevent:
+    - blocking_operations
+    - monolithic_services
+    - tight_coupling
+    - direct_database_queries
+  require:
+    - microservices_architecture
+    - async_operations
+    - message_queues
+    - caching_layers
+    - horizontal_scaling
+    - load_balancing
+  database:
+    prevent:
+      - unindexed_queries
+      - large_transactions
+      - data_redundancy
+    require:
+      - sharding_capability
+      - query_optimization
+      - connection_pooling
+  api:
+    prevent:
+      - breaking_changes
+      - unversioned_endpoints
+    require:
+      - versioning
+      - rate_limiting
+      - pagination
+      - documentation
+
+## Protected Components Rules
+protected_components:
+  dashboard:
+    prevent_changes: true
+    description: "Do not modify dashboard components or logic unless explicitly requested"
+    protected_files:
+      - frontend/src/components/dashboard/DashboardHome.jsx
+      - frontend/src/components/dashboard/AlertsPage.jsx
+      - backend/routes/webhookRoutes.js
+      - backend/models/alert.js
+    protected_features:
+      - name: "Trade Dashboard"
+        description: "Main trading dashboard functionality is working, do not modify without explicit request"
+        components:
+          - Alert display
+          - Statistics
+          - Real-time updates
+      - name: "Alert History"
+        description: "Alert history and webhook processing is working, do not modify without explicit request"
+        components:
+          - Alert storage
+          - Alert retrieval
+          - Date formatting
+          - Alert limit tracking
+          - Webhook endpoint
+    tradingview_setup:
+      prevent:
+        - webhook_url_generation_changes
+        - webhook_validation_changes
+        - webhook_display_changes
+        - alert_format_changes
+        - setup_instructions_changes
+      description: "TradingView setup is critical for alert functionality. Do not modify webhook generation, validation, display, or alert format examples."
+      protected_routes:
+        - "/dashboard/tradingview-setup"
+        - "/api/alerts/stats"
+        - "/api/webhook/*"
+      protected_functions:
+        - "generateWebhookToken"
+        - "validateWebhook"
+        - "TradingViewSetup"
+
+  alerts_history:
+    prevent_changes: true
+    description: "Do not modify alerts history components or logic unless explicitly requested"
+    protected_files:
+      - "frontend/src/components/alerts/*"
+      - "frontend/src/pages/AlertsHistory.jsx"
+      - "backend/routes/alertRoutes.js"
+
+  tradingview_setup:
+    prevent_changes: true
+    description: "Do not modify TradingView setup components or logic unless explicitly requested"
+    protected_files:
+      - "frontend/src/components/dashboard/TradingViewSetup.jsx"
+      - "backend/routes/webhookRoutes.js"
+      - "docs/TRADINGVIEW_SETUP.md"
+
+  billing:
+    prevent_changes: true
+    description: "Do not modify billing components or logic unless explicitly requested"
+    protected_files:
+      - "frontend/src/components/billing/*"
+      - "frontend/src/pages/Billing.jsx"
+      - "backend/routes/subscriptionRoutes.js"
+      - "backend/services/stripeService.js"
+
+  settings:
+    prevent_changes: true
+    description: "Do not modify settings components or logic unless explicitly requested"
+    protected_files:
+      - "frontend/src/components/settings/*"
+      - "frontend/src/pages/Settings.jsx"
+      - "backend/routes/settingsRoutes.js"
+
+  modification_rules:
+    allow_changes_when:
+      - "Explicitly requested by USER"
+      - "Bug fix is needed and approved by USER"
+      - "Security vulnerability is discovered (must notify USER first)"
+    require_before_changes:
+      - "Explicit USER permission"
+      - "Documentation of proposed changes"
+      - "Backup of existing functionality"
+    after_changes:
+      - "Document all modifications"
+      - "Test thoroughly"
+      - "Get USER approval"
+
+  important_pages:
+    prevent_changes: true
+    description: "Do not modify important pages unless explicitly requested"
+    protected_files:
+      - frontend/src/components/About.jsx
+      - frontend/src/components/PrivacyPolicy.jsx
+      - frontend/src/components/Documentation.jsx
+      - frontend/src/components/Hero.jsx
+      - frontend/src/components/Footer.jsx
+      - frontend/src/components/Navbar.jsx
+      - frontend/src/components/TermsOfService.jsx
+    protected_features:
+      - name: "Important Pages"
+        description: "These pages contain critical business information, legal content, and core UI components."
+        components:
+          - About page
+          - Privacy Policy page
+          - Documentation page
+          - Hero section
+          - Footer
+          - Navbar
+          - Terms of Service page
+
+  database_protection:
+    prevent_changes: true
+    description: "Protect user database and related files"
+    protected_files:
+      - backend/models/User.js
+      - backend/routes/users.js
+      - backend/middleware/auth.js
+      - backend/services/emailService.js
+      - backend/routes/auth.js
+    protected_features:
+      - name: "User Management"
+        description: "Core user management functionality including authentication, profile management, and data security"
+        components:
+          - User model and schema
+          - Authentication middleware
+          - User routes
+          - Email services
+          - Auth routes
+    guidelines:
+      - "Do not modify user database schema without explicit permission"
+      - "Do not change authentication logic unless specifically requested"
+      - "Maintain data privacy and security standards"
+      - "Preserve existing user data integrity"
+      - "Any changes to user-related features must be thoroughly tested"
+    change_requirements:
+      - "Explicit USER permission"
+      - "Documentation of changes"
+      - "Security impact assessment"
+      - "Data migration plan if schema changes"
+      - "Backup strategy"
+
+  webhook_protection:
+    prevent_changes: true
+    description: "Do not modify webhook functionality"
+    protected_files:
+      - "backend/routes/alertRoutes.js"
+      - "frontend/src/components/dashboard/TradingViewSetup.jsx"
+      - "backend/models/User.js"
+    severity: "high"
+
+## Environment Specific Rules
+environments:
+  development:
+    allow:
+      - debug_logging
+      - test_data
+      - mock_services
+    prevent:
+      - production_connections
+      - real_payments
+  
+  production:
+    require:
+      - ssl_encryption
+      - data_backup
+      - monitoring
+      - error_handling
+    prevent:
+      - test_code
+      - debug_mode
+      - insecure_endpoints

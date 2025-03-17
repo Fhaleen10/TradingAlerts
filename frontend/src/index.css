@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Custom styles for primary color */
+.bg-primary-600 {
+  @apply bg-orange-600;
+}
+
+.bg-primary-500 {
+  @apply bg-orange-500;
+}
+
+.text-primary-600 {
+  @apply text-orange-600;
+}
+
+.hover\:bg-primary-500:hover {
+  @apply hover:bg-orange-500;
+}
+
+.hover\:text-primary-600:hover {
+  @apply hover:text-orange-600;
+}
+
+.focus\:ring-primary-600:focus {
+  @apply focus:ring-orange-600;
+}
+
+/* Pricing Carousel Styles */
+.pricing-swiper {
+  padding: 20px 40px !important;
+}
+
+.pricing-swiper .swiper-slide {
+  height: auto !important;
+}
+
+.pricing-swiper .swiper-button-next,
+.pricing-swiper .swiper-button-prev {
+  color: #4F46E5;
+}
+
+.pricing-swiper .swiper-pagination-bullet-active {
+  background: #4F46E5;
+}
+
+.pricing-swiper .swiper-button-next:after,
+.pricing-swiper .swiper-button-prev:after {
+  font-size: 24px;
+}
+
+@media (max-width: 640px) {
+  .pricing-swiper .swiper-button-next,
+  .pricing-swiper .swiper-button-prev {
+    display: none;
+  }
+}
