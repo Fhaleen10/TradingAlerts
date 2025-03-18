@@ -1,4 +1,4 @@
-import TelegramBotAPI from 'node-telegram-bot-api'
+import TelegramBotAPI, { Message } from 'node-telegram-bot-api'
 import { PrismaClient } from '@prisma/client'
 import crypto from 'crypto'
 
@@ -103,14 +103,14 @@ export class TelegramBot {
     const bot = this.getInstance();
 
     // Handle /start command
-    bot.onText(/\/start/, async (msg) => {
-      const chatId = msg.chat.id;
+    bot.onText(/\/start/, async (msg: Message) => {
+      const chatId = msg.chat.id.toString();
       await this.handleStart(chatId);
     });
 
     // Handle test message
-    bot.onText(/\/test/, async (msg) => {
-      const chatId = msg.chat.id;
+    bot.onText(/\/test/, async (msg: Message) => {
+      const chatId = msg.chat.id.toString();
       await this.handleTest(chatId);
     });
   }
