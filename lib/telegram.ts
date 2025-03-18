@@ -116,5 +116,7 @@ export class TelegramBot {
   }
 }
 
+export const sendTelegramMessage = TelegramBot.sendMessage
+export { TelegramBot }
 // Initialize bot
 TelegramBot.initializeBot();
